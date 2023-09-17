@@ -31,7 +31,7 @@ def home(request):
 
 ```
 
-![templates.png](DJANGO%20TIPS%20c7d1b5e398674af2acc9adfdbfd2be76/templates.png)
+![templates.png](./asserts/templates.png)
 
 bir fonksiyonu redirect methodu ile birlikte kullanma:
 
@@ -148,7 +148,7 @@ Urller arama kısmına [localhost](http://localhost) ve portu yazdıktan sonra �
     
     Eğer bu şekilde bir linke ulaşmaya çalışıp bu hatayı alırsan: 
     
-    ![7qEm9.png](DJANGO%20TIPS%20c7d1b5e398674af2acc9adfdbfd2be76/7qEm9.png)
+    ![error image](./asserts/7qEm9.png)
     
     1. uygulamanın altındaki [urls.py](http://urls.py) dosyasına gelip bir name özelliği ekle
     2. proje [urls.py](http://urls.py) dosyasına gelip uygulamanın path’ıne namespace ekle
@@ -162,9 +162,9 @@ Urller arama kısmına [localhost](http://localhost) ve portu yazdıktan sonra �
     # mainapp yerine kendi uygulamanın adını yazacaksın.
     ```
     
-    ![name.png](DJANGO%20TIPS%20c7d1b5e398674af2acc9adfdbfd2be76/name.png)
+    ![name.png](./asserts/name.png)
     
-    ![namespace.png](DJANGO%20TIPS%20c7d1b5e398674af2acc9adfdbfd2be76/namespace.png)
+    ![namespace.png](./asserts/namespace.png)
     
     Daha fazla bilgi için → [https://docs.djangoproject.com/en/4.1/ref/urls/](https://docs.djangoproject.com/en/4.1/ref/urls/)
     
@@ -222,7 +222,7 @@ tel_no = models.BigIntegerField(unique=True, blank=True, null=True)
 # hiçbir şey yazmazsak database' de null olarak kayıt edilir.
 ```
 
-![null.png](DJANGO%20TIPS%20c7d1b5e398674af2acc9adfdbfd2be76/null.png)
+![null.png](./asserts/null.png)
 
 `default` → bir verinin başlangıçta ne değer almasını isteğimizi belirtiğimiz kısım.
 
@@ -254,15 +254,15 @@ Daha detaylı bilgi → [*https://docs.djangoproject.com/en/4.2/ref/models/field
 
 `ModelName.objects.delete(id=1)` → id numarası 1 olan objeyi database’den siler.
 
-![get query örneği](DJANGO%20TIPS%20c7d1b5e398674af2acc9adfdbfd2be76/query.png)
+![get query örneği](./asserts/query.png)
 
 get query örneği
 
-![get query örneği](DJANGO%20TIPS%20c7d1b5e398674af2acc9adfdbfd2be76/query2.png)
+![get query örneği](./asserts/query2.png)
 
 get query örneği
 
-![filter query örneği](DJANGO%20TIPS%20c7d1b5e398674af2acc9adfdbfd2be76/query3.png)
+![filter query örneği](./asserts/query3.png)
 
 filter query örneği
 
@@ -488,11 +488,11 @@ python manage.py collectstatic
 
 bu komuttan sonra proje ana dizininde staticfiles adında bir dosya oluşturulacak ve tüm uygulamalarımızın içindeki static dosyaları bu klasörün içine dahil edilecek. Bu dahil etme sonunda eklenen dosyaların karışmaması adına her bir uygulama için eklediğimiz static klasörlerinin altında uygulamanın adında bir klasör daha açıp static dosyalarımızı bu dosyanın içinde oluşturmalıyız. Örneğin: 
 
-![static dosyası bu şekilde olmalı](DJANGO%20TIPS%20c7d1b5e398674af2acc9adfdbfd2be76/static.png)
+![static dosyası bu şekilde olmalı](./asserts/static.png)
 
 static dosyası bu şekilde olmalı
 
-![staticfiles bu şekilde gözükecek](DJANGO%20TIPS%20c7d1b5e398674af2acc9adfdbfd2be76/staticfiles.png)
+![staticfiles bu şekilde gözükecek](./asserts/staticfiles.png)
 
 staticfiles bu şekilde gözükecek
 
@@ -1049,3 +1049,189 @@ Daha fazla bilgi için → [https://docs.djangoproject.com/en/4.1/topics/setting
     
 
 ### MULTI DATABASE
+
+- details
+    
+    will be come
+    
+
+### EMAIL - SMTP
+
+- details
+    
+    docs → [https://docs.djangoproject.com/en/4.2/topics/email/](https://docs.djangoproject.com/en/4.2/topics/email/#send-mass-mail)
+    
+    - Mail gönderme işlemlerini backend üzerinden gerçekleştirmek için Django bize olanak tanıyor.
+    - Google, Yahoo vb. smtp serverlerini kullanabileceğimiz gibi kendi smtp serverımızı da kullanabiliriz.
+    
+    **SETTINGS** 
+    
+    ```python
+    # Email settings
+    EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+    # DEFAULT_FROM_EMAIL = 'ali.yildirim@norbit.com.tr'
+    EMAIL_HOST = 'smtp.gmail.com'
+    EMAIL_PORT = 465
+    EMAIL_HOST_USER = 'ylrmali1289@gmail.com'
+    EMAIL_HOST_PASSWORD = 'kujlcebtcvuoefdq'  # google uygulama şifresi etkinleştir
+    EMAIL_USE_TLS = False
+    EMAIL_USE_SSL = True
+    # EMAIL_SUBJECT_PREFIX = '[Ali YILDIRIM]'
+    # EMAIL_USE_LOCALTIME = True
+    # EMAIL_SSL_CERTFILE = None
+    # EMAIL_SSL_KEYFILE = None
+    # EMAIL_TIMEOUT = None
+    ```
+    
+    - console backend
+        
+        Test aşamasında console u kullanabiliriz.
+        
+        ```python
+        EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+        
+        ```
+        
+        Gönderdiğimiz bütün mailler console da gözükecektir.
+        
+    
+    ****`send_mass_mail()`****
+    
+    docs → [https://docs.djangoproject.com/en/4.2/topics/email/#send-mass-mail](https://docs.djangoproject.com/en/4.2/topics/email/#send-mass-mail)
+    
+    - Bu method ile çoklu mail gönderebiliriz.
+    - send_mail() ‘ den temel farkı, çoklu mesaj yolladığımızda tek bir bağlantı kullanır.
+        
+        ```python
+        message1= (
+            "Subject here",
+            "Here is the message",
+            "from@example.com",
+            ["first@example.com", "other@example.com"],
+        )
+        message2= (
+            "Another Subject",
+            "Here is another message",
+            "from@example.com",
+            ["second@test.com"],
+        )
+        send_mass_mail((message1, message2), fail_silently=False)
+        ```
+        
+    
+    **HEADER INJECTION PROTECT**
+    
+    [https://docs.djangoproject.com/en/4.2/topics/email/#preventing-header-injection](https://docs.djangoproject.com/en/4.2/topics/email/#preventing-header-injection)
+    
+    - kötü amaçlı kişiler tarafından ekstra header eklenebilir.
+    - Django bunun önüne geçiyor
+        
+        ```python
+        from django.core.mail import BadHeaderError, send_mail
+        from django.http import HttpResponse, HttpResponseRedirect
+        
+        def send_email(request):
+            subject = request.POST.get("subject", "")
+            message = request.POST.get("message", "")
+            from_email = request.POST.get("from_email", "")
+            if subject and message and from_email:
+                try:
+                    send_mail(subject, message, from_email, ["admin@example.com"])
+                except BadHeaderError:
+                    return HttpResponse("Invalid header found.")
+                return HttpResponseRedirect("/contact/thanks/")
+            else:
+                # In reality we'd use a form class
+                # to get proper validation errors.
+                return HttpResponse("Make sure all fields are entered and valid.")
+        ```
+        
+    
+    **ADVANCE USAGE**
+    
+    ```python
+    from django.core.mail import EmailMessage, get_connection
+    from django.conf import settings
+    
+    def send_email(request):  
+       if request.method == "POST": 
+           with get_connection(  
+                host=settings.EMAIL_HOST, 
+                port=settings.EMAIL_PORT,  
+                username=settings.EMAIL_HOST_USER, 
+                password=settings.EMAIL_HOST_PASSWORD, 
+                use_tls=settings.EMAIL_USE_TLS  
+           ) as connection:  
+               subject = 'Test email'
+               email_from = settings.EMAIL_HOST_USER  
+               recipient_list = ['ali.yildirim@norbit.com.tr', ]  
+               message = 'This is a test email.'  
+               html_content = "<p>This is an <strong>important</strong> message.</p>"
+               msg = EmailMultiAlternatives(subject, message, email_from, recipient_list, connection=connection)
+               msg.attach_alternative(html_content, "text/html")
+               msg.attach_file('/home/ali/project/django-email/mailhandler/main/static/main/img/test.txt') # attach a file
+               msg.send()
+     
+       return render(request, 'main/index.html')
+    ```
+    
+
+### CAPTCHA
+
+- details
+    
+    docs → [https://developers.cloudflare.com/turnstile/](https://developers.cloudflare.com/turnstile/)
+    
+    Kullanabileceğimiz birden fazla captcha alternatifi var ama kullanıcı deneyimi ve kurulum kolaylığı için ben Cloudflare Turnstile kullanıyorum.
+    
+    - Cloudflare Turnstile sitesinden etkinleştirme
+        1. Öncelikle cloudflare sitesine girip turnstile ayarlarına gidin.
+        2. Yeni site ekle butonuna tıklayınız.
+            
+            ![cloudflare.png](./asserts/cloudflare.png)
+            
+        3. Açılan form’da gerekli kısımları doldurunuz.
+            
+            `site name` → İsimlendirmeyi istediğiniz gibi yapabilirsiniz.
+            
+            `domain` → eğer bir domain’e sahipseniz yazın, yoksa **localhost** yazın
+            
+            `widget mode` → kullanmak istediğiniz widget modu. Managed seçili kalabilir.
+            
+        4. Ana sayfaya dönüp site settings butonuna tıklayınız. Buradan secret key ve site key lerini kopyalayınız.
+        5. Django projenizin [settings.py](http://settings.py) dosyasına gelip bunları yapıştırınız
+            
+            ```python
+            TURNSTILE_SITEKEY = '<your_site_key>'
+            TURNSTILE_SECRETKEY = '<your_secret_key>'
+            ```
+            
+        6. Daha sonra gerekli kütüphaneyi yükleyiniz.
+            
+            ```python
+            pip install django-turnstile
+            ```
+            
+        7. Kullanmak istediğin app içinde [forms.py](http://forms.py) dosyanı oluştur.
+            - TurnstileField ‘ı import et
+            
+            ```python
+            from turnstile.fields import TurnstileField
+            from django import forms
+            
+            class Forms(forms.Form):
+                name = forms.CharField(max_length=100)
+                email = forms.EmailField()
+                message = forms.CharField(widget=forms.Textarea)
+                turnstile = TurnstileField(theme='light', label='')
+            
+                def clean(self):
+                    cleaned_data = super().clean()
+                    turnstile = cleaned_data.get('turnstile')
+                    name = cleaned_data.get('name')
+                    email = cleaned_data.get('email')
+                    message = cleaned_data.get('message')
+                    if not turnstile:
+                        raise forms.ValidationError('Please complete the captcha')
+                    return cleaned_data
+            ```
