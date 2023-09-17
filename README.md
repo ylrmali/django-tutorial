@@ -65,24 +65,24 @@ Ayrıca göndereceğimiz contex mutlaka dictionary tipinde olmalıdır. Yoksa ha
 
 ```python
  def sendContext(request):
-		# bu sekilde kullanımı yanlış değil ama kısıtlı bir yöntem
-		return render(request, 'contextPage.html', {'message': 'Hello Worl'})
-		context = {
-					'message': 'Hello World',
-					'name': 'Ali Yıldırım',
-					'user': request.user, # oturum açmış kullanıcıyı belirtir.
-				}
-		return render(request, 'contextPage.html', context)
-		# bu yöntem ile daha düzenli bir formda daha fazla bilgi gönderebiliriz.
+	# bu sekilde kullanımı yanlış değil ama kısıtlı bir yöntem
+	return render(request, 'contextPage.html', {'message': 'Hello Worl'})
+	context = {
+		'message': 'Hello World',
+		'name': 'Ali Yıldırım',
+		'user': request.user, # oturum açmış kullanıcıyı belirtir.
+	}
+	return render(request, 'contextPage.html', context)
+	# bu yöntem ile daha düzenli bir formda daha fazla bilgi gönderebiliriz.
 ```
 
 ```html
 <html>
 ...
 <body>
-			<h1> **{{ message }}** </h1>
-			<h3 class='name'> **{{ name }}** </h3>
-			<p> **{{ user }}** </p> 
+	<h1> **{{ message }}** </h1>
+	<h3 class='name'> **{{ name }}** </h3>
+	<p> **{{ user }}** </p> 
 </body>
 ...
 </html>
@@ -179,16 +179,16 @@ Oluşturduğumuz app içinde hazır olarak gelen [models.py](http://models.py) d
 from django.db import models
 
 class Kullanici(models.Model):
-    kullanici_adi = models.CharField(max_lenght=100, unique=True)
-		isim = models.CharField(max_lenght=100)
-		soyisim = models.CharField(max_lenght=100)
-		email = models.EmailField()
-		sifre = models.TextField() # şifreler hiçbir zaman düz string şeklinde tutulmamalı. Kriptolama işlemi yapılmalı
-		tel_no = models.BigIntegerField(unique=True, blank=True, null=True)
-		dogum_tarihi = models.DateField(blank=True, null=True)
-		aktif_mi = models.BoolenField(default=True)
-		son_aktif_tarihi = models.DateTimeField(auto_now=True, editable=False)
-		oluşturulma_tarihi = models.DateTimeField(auto_now_add=True, editable=False)
+	kullanici_adi = models.CharField(max_lenght=100, unique=True)
+	isim = models.CharField(max_lenght=100)
+	soyisim = models.CharField(max_lenght=100)
+	email = models.EmailField()
+	sifre = models.TextField() # şifreler hiçbir zaman düz string şeklinde tutulmamalı. Kriptolama işlemi yapılmalı
+	tel_no = models.BigIntegerField(unique=True, blank=True, null=True)
+	dogum_tarihi = models.DateField(blank=True, null=True)
+	aktif_mi = models.BoolenField(default=True)
+	son_aktif_tarihi = models.DateTimeField(auto_now=True, editable=False)
+	oluşturulma_tarihi = models.DateTimeField(auto_now_add=True, editable=False)
 ```
 
 - Models
@@ -282,9 +282,9 @@ Bu kısımda forms altında models in altındaki çoğu şey mevcut. Ve aynı i�
 from django import forms
 
 class UserForm(forms.Form):
-			name = forms.CharField(label='Your Name', max_lenght=100) #bu kısımdaki label html de oluşturulan label ile aynı şey. Label içine yazdığımız yazı kullanıcıya gösterilir.
-			surname = forms.CharField(label='Your Surname', max_lenght=10)
-			username = forms.CharField(label='Surname', max_lenght=50)
+	name = forms.CharField(label='Your Name', max_lenght=100) #bu kısımdaki label html de oluşturulan label ile aynı şey. Label içine yazdığımız yazı kullanıcıya gösterilir.
+	surname = forms.CharField(label='Your Surname', max_lenght=10)
+	username = forms.CharField(label='Surname', max_lenght=50)
 ```
 
 Bu formumuzu html sayfamızda görüntülemek istediğimizde view dosyamızda context olarak göndermemiz lazım.
@@ -297,22 +297,22 @@ from .models import UserModel
 from .forms import UserForm
 
 def get_user(request):
-		# Eğer kullanıcı formu doldurup gönderirse post metodu gerçekleşir.
-		if request.method == 'POST':
-				form = UserForm(request.POST) # formumuzdan gelen bilgileri alalım.
-				if form.is_valid():
-						name = form.cleaned_data['name']
-            surname= form.cleaned_data['surname']
-            username= form.cleaned_data['username']
-						user = UserModel(name=name, surname=surname, username=username)
-						user.save()
-						return redirect('/')
-		else:
-				form = UserForm()
-				context = {
-							'form': form,
-				}
-				return render(request, 'home.html', context)				
+	# Eğer kullanıcı formu doldurup gönderirse post metodu gerçekleşir.
+	if request.method == 'POST':
+		form = UserForm(request.POST) # formumuzdan gelen bilgileri alalım.
+		if form.is_valid():
+		name = form.cleaned_data['name']
+		surname= form.cleaned_data['surname']
+		username= form.cleaned_data['username']
+		user = UserModel(name=name, surname=surname, username=username)
+		user.save()
+		return redirect('/')
+	else:
+		form = UserForm()
+		context = {
+			'form': form,
+		}
+		return render(request, 'home.html', context)				
 ```
 
 Html sayfamızda birden farklı türde formumuzu gösterebiliriz.
@@ -342,11 +342,11 @@ from django import forms
 from .models import UserModel
 
 class UserClassForm(forms.ModelForm):
-		class Meta:
-					model = UserModel()
-					fields = "__all__"
-					# görüntülenmesini istediğiniz field'ları belirtiriz.
-					# fields = ["username", "name", "surname"]
+	class Meta:
+		model = UserModel()
+		fields = "__all__"
+		# görüntülenmesini istediğiniz field'ları belirtiriz.
+		# fields = ["username", "name", "surname"]
 
 ```
 
@@ -357,17 +357,17 @@ from django.shortcuts import render, redirect
 from project.forms import UserClassForm
 
 def show_form(request):
-		if request.method == 'POST':
-				form = UserClassForm(request.POST)
-				if form.is_valid():
-						form.save()
-						return redirect('/')
-		else:
-				form = UserClassForm()
-				context = {
-							'form': form,
-				}
-				return render(request, 'home.html', context)
+	if request.method == 'POST':
+		form = UserClassForm(request.POST)
+		if form.is_valid():
+		form.save()
+		return redirect('/')
+	else:
+		form = UserClassForm()
+		context = {
+			'form': form,
+		}
+		return render(request, 'home.html', context)
 
 ```
 
@@ -395,9 +395,9 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.google',
     'ckeditor',  # django rich text editor kütüphanesi
     'accountapplication.apps.AccountapplicationConfig', #benim oluşturduğum accountapplication adındaki kütüphane
-		# bunu bu şekilde belirmek yerine direkt olarak accountapplication, olarak da belirtebiliriz.
+	# bunu bu şekilde belirmek yerine direkt olarak accountapplication, olarak da belirtebiliriz.
     'mainapp.apps.MainappConfig',  #benim oluşturduğum bir app
-		# django içinde hazır gelen app ler
+	# django içinde hazır gelen app ler
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -895,10 +895,10 @@ Daha fazla bilgi için → [https://docs.djangoproject.com/en/4.1/topics/setting
     from django.db.models import Q
     
     ''' 
-    				Bu sorgu, John adlı bir yazar tarafından yazılan veya 
-    				Penguin tarafından yayınlanan tüm kitapları getirir ve 
-    				'Romantik' türündeki ve Penguin tarafından yayınlanan 
-    				kitapları hariç tutar.
+	Bu sorgu, John adlı bir yazar tarafından yazılan veya 
+	Penguin tarafından yayınlanan tüm kitapları getirir ve 
+	'Romantik' türündeki ve Penguin tarafından yayınlanan 
+	kitapları hariç tutar.
     '''
     books = Book.objects.filter(
         Q(author__name='John') |
@@ -934,38 +934,39 @@ Daha fazla bilgi için → [https://docs.djangoproject.com/en/4.1/topics/setting
         flaw_coordinate = models.JSONField()
         flaw_size = models.JSONField()
     		
-    		# do not use like that 
-    		def get_flaw_type_count(self):
-            ''' get spesific flaw counts for reports 
-            '''
-            data = {}
-    
-            for flaw in FlawType.objects.all():
-                data[flaw.id] = {
-                    "flaw_type_id": flaw.id,
-                    "flaw_type_name": flaw.name,
-                    "created_at": str(flaw.created_at),
-                    "updated_at": str(flaw.updated_at),
-                    "deleted_at": str(flaw.deleted_at),
-                    "count": 0
-                    }
-                
-    
-            for flaw in Flaw.objects.all():
-                flaw_type = flaw.flaw_type_id
-                if flaw_type in data:
-                    data[flaw_type]["count"] += 1
-    
-            return data
-    
-    		# use this 
-    		def get_flaw_type_count_wAnnote(self) -> list:
-    				''' 
-    						right and faster way to get flaw type count
-    				'''
-    				data = Flaw.objects.values('flaw_type__name').annotate(flaw_count=Count('flaw_type'))
-    				return data
-    		# output -> <QuerySet [{'flaw_type__name': 'Yağ Lekesi', 'flaw_count': 1392}]>
+	# do not use like that 
+	def get_flaw_type_count(self):
+	    '''
+    		get spesific flaw counts for reports 
+	    '''
+	    data = {}
+	
+	    for flaw in FlawType.objects.all():
+		data[flaw.id] = {
+		    "flaw_type_id": flaw.id,
+		    "flaw_type_name": flaw.name,
+		    "created_at": str(flaw.created_at),
+		    "updated_at": str(flaw.updated_at),
+		    "deleted_at": str(flaw.deleted_at),
+		    "count": 0
+		    }
+		
+	
+	    for flaw in Flaw.objects.all():
+		flaw_type = flaw.flaw_type_id
+		if flaw_type in data:
+		    data[flaw_type]["count"] += 1
+	
+	    return data
+	
+		# use this 
+		def get_flaw_type_count_wAnnote(self) -> list:
+		''' 
+			right and faster way to get flaw type count
+		'''
+			data = Flaw.objects.values('flaw_type__name').annotate(flaw_count=Count('flaw_type'))
+			return data
+			# output -> <QuerySet [{'flaw_type__name': 'Yağ Lekesi', 'flaw_count': 1392}]>
     ```
     
 - ***cache kullan***
@@ -978,14 +979,14 @@ Daha fazla bilgi için → [https://docs.djangoproject.com/en/4.1/topics/setting
                 flaw_count_roll -> how many flaw are there same roll_id
             ''' 
             roll = models.ForeignKey(Roll, 
-        						models.CASCADE, 
-        						related_name='flaw_roll',
-        						db_index=True) # buraya
+			models.CASCADE, 
+			related_name='flaw_roll',
+			db_index=True) # buraya
             order = models.ForeignKey(Order, 
-        						models.CASCADE, 
-        						related_name='flaw_order', 
-        						null=True, blank=True,
-        						db_index=True) # buraya 
+			models.CASCADE, 
+			related_name='flaw_order', 
+			null=True, blank=True,
+			db_index=True) # buraya 
             machine = models.ForeignKey(Machine, models.CASCADE, related_name='flaw_machine')
             flaw_type = models.ForeignKey(FlawType, models.CASCADE, related_name='flaw_type')
             flaw_count_of_roll = models.BigIntegerField(default=1)
@@ -1034,17 +1035,17 @@ Daha fazla bilgi için → [https://docs.djangoproject.com/en/4.1/topics/setting
     from [django.contrib.postgres.search](http://django.contrib.postgres.search) import TrigramSimilarity, TrigramStrictWordDistance
     
     CustomUser.objects.annotate(
-    			sim=TrigramSimilarity("username", "bazyar"),) \
-    			.filter(sim__gt=0.3).order_by('-sim')
+		sim=TrigramSimilarity("username", "bazyar"),) \
+		.filter(sim__gt=0.3).order_by('-sim')
     
     CustomUser.objects.annotate(
-    			sim=TrigramStrictWordDistance("bazyar", "username"),) \
-    			.filter(sim__lte=0.7).order_by('-sim')
+		sim=TrigramStrictWordDistance("bazyar", "username"),) \
+		.filter(sim__lte=0.7).order_by('-sim')
     
     ''' best result in this config '''
     CustomUser.objects.annotate(
-    			sim=TrigramStrictWordDistance("bazyabb", "username"),) \ 
-    			.filter(sim__lte=0.9).order_by('-sim')
+		sim=TrigramStrictWordDistance("bazyabb", "username"),) \ 
+		.filter(sim__lte=0.9).order_by('-sim')
     ```
     
 
