@@ -266,7 +266,7 @@ get query örneği
 
 filter query örneği
 
-Daha detaylı bilgi → [*https://docs.djangoproject.com/en/4.1/topics/db/queries/](https://docs.djangoproject.com/en/4.2/topics/db/queries/)*  
+Daha detaylı bilgi → [*https://docs.djangoproject.com/en/4.2/topics/db/queries/](https://docs.djangoproject.com/en/4.2/topics/db/queries/)*  
 
 ## FORMS
 
